@@ -1,59 +1,62 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# Smart Shelf
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+Smart Shelf is a web app for tracking inventory on shelves fitted with weight sensors. Each product sits on a load cell (HX711 + ESP32), and the shelf reports its weight so the system can work out how many units are left without anyone counting by hand.
 
-## About Laravel
+## What it does
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+- **Product registry** — each product has a name, product code, unit weight (grams per item), a minimum stock threshold, and the ID of the sensor it's linked to.
+- **Stock tracking by weight** — because each product's unit weight is known, the total weight read from a shelf's sensor can be converted into a live item count.
+- **Low-stock awareness** — the `min_stock` threshold on each product is the basis for flagging when a shelf needs restocking.
+- **User accounts** — registration, login, email verification, password reset, and profile management (built on Laravel's standard auth scaffolding).
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+## Tech stack
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+- **Backend:** Laravel 12 (PHP 8.2+)
+- **Frontend:** Blade templates, Tailwind CSS, Alpine.js
+- **Build tool:** Vite
+- **Database:** MySQL (configurable via `.env`)
+- **Hardware (external to this repo):** ESP32 microcontrollers with HX711 load cell amplifiers report shelf weight
 
-## Learning Laravel
+## Getting started
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework. You can also check out [Laravel Learn](https://laravel.com/learn), where you will be guided through building a modern Laravel application.
+### Requirements
+- PHP 8.2+
+- Composer
+- Node.js + npm
+- MySQL
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+### Setup
 
-## Laravel Sponsors
+```bash
+composer install
+npm install
+cp .env.example .env      # create this if it doesn't exist yet
+php artisan key:generate
+```
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+Update `.env` with your database credentials, then:
 
-### Premium Partners
+```bash
+php artisan migrate
+npm run build      # or `npm run dev` while developing
+php artisan serve
+```
 
-- **[Vehikl](https://vehikl.com)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Redberry](https://redberry.international/laravel-development)**
-- **[Active Logic](https://activelogic.com)**
+Visit `http://localhost:8000`.
 
-## Contributing
+## Project structure
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+- `app/Models/Product.php` — the product/shelf-item model
+- `app/Http/Controllers/ProductController.php` — CRUD for products
+- `database/migrations/*_create_products_table.php` — products table schema (name, product_code, unit_weight, min_stock, sensor_id)
+- `resources/views/products/` — product listing and creation pages
 
-## Code of Conduct
+## Roadmap ideas
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
-
-## Security Vulnerabilities
-
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+- Live sensor readings feeding directly into stock counts
+- Restock alerts/notifications when a product drops below `min_stock`
+- Dashboard view showing all shelves at a glance
 
 ## License
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+This project is open-sourced under the [MIT license](https://opensource.org/licenses/MIT).
