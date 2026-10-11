@@ -2,6 +2,277 @@
 @tailwind components;
 @tailwind utilities;
 
+
+/* =========================================================
+   SMART SHELF INVENTORY SYSTEM
+   Global Design Foundation
+   ========================================================= */
+
+
+/* =========================================================
+   DESIGN TOKENS
+   ========================================================= */
+
+@layer base {
+
+    :root {
+
+        /*
+        |--------------------------------------------------------------------------
+        | Industrial Brand
+        |--------------------------------------------------------------------------
+        */
+
+        --app-industrial-50: #F5F7F9;
+        --app-industrial-100: #EAF0F5;
+        --app-industrial-200: #DCE3E8;
+        --app-industrial-300: #BCCCDC;
+        --app-industrial-400: #829AB1;
+        --app-industrial-500: #627D98;
+        --app-industrial-600: #486581;
+        --app-industrial-700: #334E68;
+        --app-industrial-800: #243B53;
+        --app-industrial-900: #102A43;
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | Safety Amber
+        |--------------------------------------------------------------------------
+        */
+
+        --app-safety-50: #FFFBEB;
+        --app-safety-100: #FEF3C7;
+        --app-safety-200: #FDE68A;
+        --app-safety-300: #FCD34D;
+        --app-safety-400: #FBBF24;
+        --app-safety-500: #F59E0B;
+        --app-safety-600: #D97706;
+        --app-safety-700: #B45309;
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | Success
+        |--------------------------------------------------------------------------
+        */
+
+        --app-success-50: #ECFDF5;
+        --app-success-100: #D1FAE5;
+        --app-success-500: #10B981;
+        --app-success-600: #059669;
+        --app-success-700: #047857;
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | Danger
+        |--------------------------------------------------------------------------
+        */
+
+        --app-danger-50: #FEF2F2;
+        --app-danger-100: #FEE2E2;
+        --app-danger-500: #EF4444;
+        --app-danger-600: #DC2626;
+        --app-danger-700: #B91C1C;
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | Information
+        |--------------------------------------------------------------------------
+        */
+
+        --app-info-50: #EFF6FF;
+        --app-info-100: #DBEAFE;
+        --app-info-500: #3B82F6;
+        --app-info-600: #2563EB;
+        --app-info-700: #1D4ED8;
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | Neutral Interface
+        |--------------------------------------------------------------------------
+        */
+
+        --app-bg: #F5F7F9;
+
+        --app-surface: #FFFFFF;
+
+        --app-surface-soft: #F8FAFC;
+
+        --app-border: #E2E8F0;
+
+        --app-border-soft: #EEF2F7;
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | Typography
+        |--------------------------------------------------------------------------
+        */
+
+        --app-text: #1F2937;
+
+        --app-text-secondary: #475569;
+
+        --app-text-muted: #64748B;
+
+        --app-text-light: #94A3B8;
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | Semantic Colors
+        |--------------------------------------------------------------------------
+        |
+        | These are aliases.
+        |
+        | If the visual identity changes in the future, we can change
+        | these values without rewriting individual components.
+        |
+        */
+
+        --app-primary: var(--app-industrial-700);
+
+        --app-primary-hover: var(--app-industrial-800);
+
+        --app-primary-soft: var(--app-industrial-100);
+
+        --app-accent: var(--app-safety-500);
+
+        --app-accent-hover: var(--app-safety-600);
+
+        --app-focus: var(--app-industrial-500);
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | Gradients
+        |--------------------------------------------------------------------------
+        */
+
+        --app-gradient-primary:
+            linear-gradient(
+                135deg,
+                var(--app-industrial-800) 0%,
+                var(--app-industrial-700) 55%,
+                var(--app-industrial-600) 100%
+            );
+
+        --app-gradient-primary-dark:
+            linear-gradient(
+                135deg,
+                var(--app-industrial-900) 0%,
+                var(--app-industrial-800) 55%,
+                var(--app-industrial-700) 100%
+            );
+
+        --app-gradient-safety:
+            linear-gradient(
+                135deg,
+                var(--app-safety-500),
+                var(--app-safety-600)
+            );
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | Shadows
+        |--------------------------------------------------------------------------
+        */
+
+        --app-shadow-sm:
+            0 1px 2px rgba(15, 23, 42, 0.04);
+
+        --app-shadow-card:
+            0 1px 2px rgba(15, 23, 42, 0.03),
+            0 6px 18px rgba(15, 23, 42, 0.04);
+
+        --app-shadow-card-hover:
+            0 10px 30px rgba(15, 23, 42, 0.08);
+
+        --app-shadow-primary:
+            0 6px 18px rgba(51, 78, 104, 0.20);
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | Radius
+        |--------------------------------------------------------------------------
+        */
+
+        --app-radius-sm: 0.5rem;
+
+        --app-radius: 0.75rem;
+
+        --app-radius-lg: 1rem;
+
+        --app-radius-xl: 1.25rem;
+
+        --app-radius-full: 9999px;
+
+    }
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Global Page Defaults
+    |--------------------------------------------------------------------------
+    */
+
+    html {
+        color-scheme: light;
+    }
+
+    body {
+        color: var(--app-text);
+
+        background-color: var(--app-bg);
+
+        font-family:
+            'Figtree',
+            ui-sans-serif,
+            system-ui,
+            sans-serif;
+
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+    }
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Selection
+    |--------------------------------------------------------------------------
+    */
+
+    ::selection {
+        color: var(--app-industrial-900);
+
+        background-color: var(--app-safety-200);
+    }
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Keyboard Focus
+    |--------------------------------------------------------------------------
+    */
+
+    :focus-visible {
+        outline: 2px solid var(--app-focus);
+        outline-offset: 2px;
+    }
+
+}
+
+
+/* =========================================================
+   ALPINE
+   ========================================================= */
+
 [x-cloak] {
     display: none !important;
 }
